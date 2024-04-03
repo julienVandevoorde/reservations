@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArtistType extends Model
+class RepresentationUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'artist_type';
+    protected $fillable = [
+        'place',
+    ];
+
+    protected $table = 'representation_user';
 
     public $timestamp = false;
 }

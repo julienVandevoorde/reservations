@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('localities', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('postal_code')->length(6);
-            $table->string('locality')->length(60);
+            $table->string('login', 30);
+            $table->string('password', 255);
+            $table->string('firstname', 60);
+            $table->string('lastname', 60);
+            $table->string('email', 100);
+            $table->string('langue', 2);
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('localities');
+        Schema::dropIfExists('users');
     }
 };

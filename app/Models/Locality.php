@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Localities extends Model
+class Locality extends Model
 {
     use HasFactory;
 
@@ -14,5 +14,7 @@ class Localities extends Model
         'locality',
     ];
 
-    protected $timestamp = false;
+    protected $table = 'localities';
+
+    public $timestamp = false;
 }
