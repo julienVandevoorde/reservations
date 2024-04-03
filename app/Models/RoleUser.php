@@ -9,7 +9,7 @@ class RoleUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'role_user';
+    public $table = 'role_user';
 
     public $timestamp = false;
 }

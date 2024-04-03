@@ -13,7 +13,12 @@ class Role extends Model
         'role',
     ];
 
-    protected $table = 'roles';
+    public $table = 'roles';
 
     public $timestamp = false;
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }   
 }

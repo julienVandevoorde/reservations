@@ -13,7 +13,7 @@ class RepresentationUser extends Model
         'place',
     ];
 
-    protected $table = 'representation_user';
+    public $table = 'representation_user';
 
     public $timestamp = false;
 }

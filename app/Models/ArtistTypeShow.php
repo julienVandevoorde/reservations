@@ -9,7 +9,7 @@ class ArtistTypeShow extends Model
 {
     use HasFactory;
 
-    protected $table = 'artist_type_show';
+    public $table = 'artist_type_show';
 
     public $timestamp = false;
 }

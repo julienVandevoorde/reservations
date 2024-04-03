@@ -10,10 +10,24 @@ class Representation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'show_id',
         'when',
+        'location_id',
     ];
 
-    protected $table = 'representations';
+    public $table = 'representations';
 
     public $timestamp = false;
+
+    public function shows(){
+        return $this->belongsToMany(Show::class);
+    }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -13,7 +13,16 @@ class Type extends Model
         'type',
     ];
 
-    protected $table = 'types';
+    public $table = 'types';
 
     public $timestamp = false;
+
+
+    public function artists(){
+        return $this->belongsTo(Artist::class);
+    }
+
+    public function artistTypes(){
+        return $this->belongsToMany(ArtistType::class);
+    }
 }

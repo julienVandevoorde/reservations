@@ -14,7 +14,11 @@ class Locality extends Model
         'locality',
     ];
 
-    protected $table = 'localities';
+    public $table = 'localities';
 
     public $timestamp = false;
+
+    public function location(){
+        return $this->hasMany(Location::class);
+    }
 }

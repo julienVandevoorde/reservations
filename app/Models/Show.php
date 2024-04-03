@@ -10,6 +10,7 @@ class Show extends Model
     use HasFactory;
 
     protected $fillable = [
+        'slug',
         'title',
         'description',
         'poster_url',
@@ -18,7 +19,20 @@ class Show extends Model
         'price',
     ];
 
-    protected $table = 'shows';
+    public $table = 'shows';
 
-    public $timestamp = false;
+    public $timestamp = true;
+
+    public function artistsTypes(){
+        return $this->belongsToMany(ArtistType::class);
+    }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
+
+    public function representations(){  
+        return $this->hasMany(Representation::class);   
+    }
+
 }
