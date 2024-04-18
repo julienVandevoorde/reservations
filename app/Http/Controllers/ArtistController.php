@@ -31,7 +31,8 @@ class ArtistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //Validation des données du formulaire
         $validated = $request->validate([
             'firstname' => 'required|max:60',
@@ -52,6 +53,7 @@ class ArtistController extends Controller
 
 
 
+
     /**
      * Display the specified resource.
      */
@@ -67,14 +69,19 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
-        $artist = Artist::find($id);
-        
-        return view('artist.edit',[
-            'artist' => $artist,
-        ]);
+    public function edit(string $id)
+{
+    $artist = Artist::find($id);
+    
+    if (!$artist) {
+        // Gérer le cas où l'artiste n'est pas trouvé
+        return redirect()->route('artist.index')->with('error', 'Artiste non trouvé');
     }
+
+    return view('artist.edit', [
+        'artist' => $artist,
+    ]);
+}
 
 
     /**
@@ -103,8 +110,11 @@ class ArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Artist::destroy($id);
+
+        return redirect()->route('artist.index');
     }
+
 }

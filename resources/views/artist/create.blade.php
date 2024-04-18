@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Modifier un artiste')
+@section('title', 'Ajouter un artiste')
 
 @section('content')
     <h2>Ajouter un artiste</h2>
-        
+
+    <form action="{{ route('artist.store') }}" method="post">
+        @csrf
         <div>
             <label for="firstname">Prénom</label>
             <input type="text" id="firstname" name="firstname" 
 	       @if(old('firstname'))
-                value="{{ old('firstname') }}"  
+                value="{{ old('firstname') }}" 
             @endif
 	           class="@error('firstname') is-invalid @enderror">
 
@@ -24,7 +26,7 @@
 	       @if(old('lastname'))
                 value="{{ old('lastname') }}" 
             @endif
-	            class="@error('lastname') is-invalid @enderror">
+	           class="@error('lastname') is-invalid @enderror">
 
 	@error('lastname')
             <div class="alert alert-danger">{{ $message }}</div>
@@ -32,7 +34,7 @@
         </div>
 
         <button>Ajouter</button>
-        <a href="{{ route('artist.index') }}">Annuler</a>
+   <a href="{{ route('artist.index') }}">Annuler</a>
     </form>
 
 @if ($errors->any())
@@ -48,3 +50,4 @@
 
     <nav><a href="{{ route('artist.index') }}">Retour à l'index</a></nav>
 @endsection
+
