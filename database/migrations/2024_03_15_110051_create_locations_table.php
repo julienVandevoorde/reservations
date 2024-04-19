@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('slug', 60);
             $table->string('designation', 60);
             $table->string('address', 255);
-            $table->unsignedBigInteger('locality_id'); 
+            $table->foreignId('locality_id');
             $table->string('website', 255);
             $table->string('phone', 30);
-            
 
+            $table->foreign('locality_id')->references('id')->on('localities')
+                    ->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Locality;
-
 class LocalitySeeder extends Seeder
 {
     /**
@@ -14,19 +13,19 @@ class LocalitySeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        Locality::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         $locality = [
             [
-                'postal_code' => '1070',
+                'postal_code' => '1000',
                 'locality' => 'Bruxelles-Capitale',
             ],
             [
-                'postal_code' => '1480',
-                'locality' => 'Tubize',
+                'postal_code' => '1170',
+                'locality' => '1170',
 
-            ],
-            [
-                'postal_code' => '1080',
-                'locality' => 'Molenbeek-Saint-Jean',
             ],
         ];
 
