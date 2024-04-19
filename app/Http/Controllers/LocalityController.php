@@ -12,7 +12,12 @@ class LocalityController extends Controller
      */
     public function index()
     {
-        //
+        $localitys = Locality::all();
+
+    return view('locality.index', [
+        'localitys' => $localitys, 
+        'resource' => 'localitys',
+    ]);
     }
 
     /**
@@ -34,10 +39,15 @@ class LocalityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $locality = Locality::find($id);
+        
+        return view('locality.show',[
+            'locality' => $locality,
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

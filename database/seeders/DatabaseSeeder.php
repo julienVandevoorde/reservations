@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 
@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LocalitySeeder::class,
             RoleSeeder::class,           
             LocationSeeder::class,    
+            ShowSeeder::class,
         ]);
         
     }

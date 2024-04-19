@@ -11,16 +11,19 @@ return new class extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 60);
+            $table->string('slug',60)->unique();
             $table->string('title', 60);
-            $table->string('text');
+            $table->text('description')->nullable(); // Ajout de la colonne 'description'
             $table->string('poster_url', 255);
-            $table->unsignedBigInteger('location_id'); 
+            $table->foreignId('location_id')->nullable(); 
             $table->boolean('bookable'); 
             $table->decimal('price', 8, 2); 
-            $table->timestamps();
-            
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
+
+            $table->foreign('location_id')->references('id')->on('locations')
+                    ->onDelete('restrict')->onUpdate('cascade');
+
         });
     }
 

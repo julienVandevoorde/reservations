@@ -39,13 +39,15 @@ Route::get('/type', [TypeController::class, 'index'])->name('type.index');
 Route::get('/type/{id}', [TypeController::class, 'show'])
 			->where('id', '[0-9]+')->name('type.show');
 
-Route::get('/locality', [LocalityController::class, 'index']) ->name('locality_index');
+Route::get('/locality', [LocalityController::class, 'index']) ->name('locality.index');
 Route::get('/locality/{id}', [LocalityController::class, 'show'])
-					->where('id', '[0-9]+')->name('locality_show');
+					->where('id', '[0-9]+')->name('locality.show');
 			
-Route::get('/role', [RoleController::class, 'index'])->name('role_index');
+Route::get('/role', [RoleController::class, 'index'])->name('role.index');
 Route::get('/role/{id}', [RoleController::class, 'show'])
-					->where('id', '[0-9]+')->name('role_show');
+					->where('id', '[0-9]+')->name('role.show');
+
+
 			
 	
 

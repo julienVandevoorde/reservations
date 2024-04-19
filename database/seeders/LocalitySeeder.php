@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Locality;
+
 class LocalitySeeder extends Seeder
 {
     /**
@@ -24,7 +25,7 @@ class LocalitySeeder extends Seeder
             ],
             [
                 'postal_code' => '1170',
-                'locality' => '1170',
+                'locality' => 'Watermael-Boitsfort',
 
             ],
         ];
