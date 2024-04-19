@@ -19,8 +19,8 @@ class Representation extends Model
 
     public $timestamp = false;
 
-    public function shows(){
-        return $this->belongsToMany(Show::class);
+    public function show(){
+        return $this->belongsTo(Show::class);
     }
 
     public function location(){

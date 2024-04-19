@@ -8,14 +8,16 @@
     <ul>
     @foreach($representations as $representation)
         <li>
-            @if ($representation->show)
+            @if ($representation->show && $representation->show->title)
                 {{ $representation->show->title }}
             @else
-                Spectacle inconnu
+                Titre inconnu
             @endif
 
-            @if($representation->location)
+            @if($representation->location && $representation->location->designation)
                 - <span>{{ $representation->location->designation }}</span>
+            @else
+                Lieu inconnu
             @endif
 
             - <datetime>{{ substr($representation->when, 0, -3) }}</datetime>

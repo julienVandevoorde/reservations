@@ -22,6 +22,7 @@ class RepresentationController extends Controller
     } 
 
 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -41,7 +42,7 @@ class RepresentationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $representation = Representation::find($id);
         $date = Carbon::parse($representation->when)->format('d/m/Y');
@@ -53,6 +54,7 @@ class RepresentationController extends Controller
             'time' => $time,
         ]);
     }
+
 
 
     /**
