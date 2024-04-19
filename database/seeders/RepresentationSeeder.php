@@ -65,4 +65,3 @@ class RepresentationSeeder extends Seeder
         DB::table('representations')->insert($representations);
     }
 }
-

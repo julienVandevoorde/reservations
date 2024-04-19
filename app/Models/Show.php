@@ -34,5 +34,6 @@ class Show extends Model
     public function representations(){  
         return $this->hasMany(Representation::class);   
     }
+    
 
 }
