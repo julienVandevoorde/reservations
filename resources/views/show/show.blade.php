@@ -12,6 +12,10 @@
         <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
         @endif
         
+        @if($show->description)
+        <p><strong>Description:</strong> {{ $show->description }}</p>
+        @endif
+        
         @if($show->location)
         <p><strong>Lieu de création:</strong> {{ $show->location->designation }}</p>
         @endif
@@ -25,7 +29,7 @@
         @endif
         
         <h2>Liste des représentations</h2>
-        @if($show->representations->count()>=1)
+        @if($show->representations && $show->representations->count() >= 1)
         <ul>
             @foreach ($show->representations as $representation)
                 <li>{{ $representation->when }} 
@@ -42,6 +46,30 @@
         @else
         <p>Aucune représentation</p>
         @endif
+
+        <h2>Liste des artistes</h2>
+        <p><strong>Auteur:</strong>
+        @foreach ($collaborateurs['auteur'] as $auteur)
+            {{ $auteur->firstname }} 
+            {{ $auteur->lastname }}@if($loop->iteration == $loop->count-1) et 
+            @elseif(!$loop->last), @endif
+        @endforeach
+        </p>
+        <p><strong>Metteur en scène:</strong>
+        @foreach ($collaborateurs['scénographe'] as $scenographe)
+            {{ $scenographe->firstname }} 
+            {{ $scenographe->lastname }}@if($loop->iteration == $loop->count-1) et 
+            @elseif(!$loop->last), @endif
+        @endforeach
+        </p>
+        <p><strong>Distribution:</strong>
+        @foreach ($collaborateurs['comédien'] as $comedien)
+            {{ $comedien->firstname }} 
+            {{ $comedien->lastname }}@if($loop->iteration == $loop->count-1) et 
+            @elseif(!$loop->last), @endif
+        @endforeach
+        </p>
+
     </article>
     
     <nav><a href="{{ route('show.index') }}">Retour à l'index</a></nav>

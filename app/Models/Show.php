@@ -23,7 +23,7 @@ class Show extends Model
 
     public $timestamp = true;
 
-    public function artistsTypes(){
+    public function artistTypes(){
         return $this->belongsToMany(ArtistType::class);
     }
 
