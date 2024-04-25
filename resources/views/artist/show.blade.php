@@ -7,6 +7,13 @@
 
     <div><a href="{{ route('artist.edit' ,$artist->id) }}">Modifier</a></div>
 
+    <h2>Liste des types</h2>
+    <ul>
+    @foreach($artist->types as $type)    
+        <li>{{ $type->type }}</li>
+    @endforeach
+    </ul>
+
 <form method="post" action="{{ route('artist.delete', $artist->id) }}">
 		@csrf
 		@method('DELETE')
