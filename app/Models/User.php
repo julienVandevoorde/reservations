@@ -57,6 +57,6 @@ class User extends Authenticatable
     
     public function representations()
     {
-        return $this->hasMany(Representation::class);
+        return $this->belongsToMany(Representation::class);
     }
 }
