@@ -72,6 +72,10 @@ Route::get('/show', [ShowController::class, 'index'])->name('show.index');
 Route::get('/show/{id}', [ShowController::class, 'show'])
 					->where('id', '[0-9]+')->name('show.show');
 
+Route::get('/recherche', [ShowController::class, 'search'])->name('search.show');
+
+
+
 //Representation	
 Route::get('/representation', [RepresentationController::class, 'index'])
 					->name('representation.index');

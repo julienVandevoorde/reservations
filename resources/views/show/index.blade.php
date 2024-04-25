@@ -6,46 +6,38 @@
     <div class="show-list-content">
         <h1>Liste des {{ $resource }}</h1>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Représentations</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($shows as $show)   
-                <tr>
-                    <td>{{ $show->title }}</td>
-                    <td>
-                    @if($show->bookable)
-                        {{ $show->price }} €
-                    @endif
-                    </td>
-                    <td>
-                    @if($show->representations->count()==1)
-                        1 représentation
-                    @elseif($show->representations->count()>1)
-                        {{ $show->representations->count() }} représentations
-                    @else
-                        <em>aucune représentation</em>
-                    @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('show.show', $show->id) }}" class="details-button">Voir détails</a>
-                    </td>
-                </tr>
+        <div class="search-container">
+            <form action="{{ route('search.show') }}" method="GET">
+                <input type="text" name="query" placeholder="Rechercher un spectacle">
+                <button type="submit">Rechercher</button>
+                @if(request()->has('query'))
+                    <a href="{{ route('show.index') }}" class="btn btn-secondary">Annuler la recherche</a>
+                @endif
+            </form>
+        </div>
+
+        <div class="show-cards">
+            @foreach($shows as $show)
+                <div class="show-card">
+                    <img src="{{ asset($show->image_path) }}" alt="{{ $show->title }}" class="show-image">
+                    <div class="show-info">
+                        <h2>{{ $show->title }}</h2>
+                        <p>
+                            @if($show->bookable)
+                                {{ $show->price }} €
+                            @else
+                                Non disponible à la réservation
+                            @endif
+                        </p>
+                        <a href="{{ route('show.show', $show->id) }}" class="btn btn-primary">Voir détails</a>
+                    </div>
+                </div>
             @endforeach
-            </tbody>
-        </table>
+        </div>
     </div>
 @endsection
 
 <style>
-    /* Styles spécifiques pour la page Liste des spectacles */
-
     .show-list-content {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
@@ -63,48 +55,60 @@
         margin-bottom: 40px;
     }
 
-    .show-list-content table {
+    .search-container {
+        margin-bottom: 20px;
+    }
+
+    .search-container form {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-container input[type="text"] {
+        padding: 10px;
+        margin-right: 10px;
+    }
+
+    .show-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .show-card {
+        width: 300px;
+        margin: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .show-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .show-image {
         width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 40px;
+        height: 200px;
+        object-fit: cover;
     }
 
-    .show-list-content th, .show-list-content td {
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
+    .show-info {
+        padding: 20px;
     }
 
-    .show-list-content th {
-        background-color: #f2f2f2;
+    .show-info h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
     }
 
-    .show-list-content tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    .show-list-content .details-button {
-        text-decoration: none;
-        color: #007bff;
+    .show-info p {
         font-size: 1.2em;
-        margin-left: 20px;
-        padding: 5px 15px;
-        border: 1px solid #007bff;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
+        margin-bottom: 15px;
     }
 
-    .show-list-content .details-button:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .show-list-content span {
-        font-size: 1.1em;
-    }
-
-    .show-list-content em {
-        color: #999;
-        font-style: italic;
+    .btn-secondary {
+        margin-left: 10px;
     }
 </style>

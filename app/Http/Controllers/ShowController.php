@@ -20,7 +20,22 @@ class ShowController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
 
+        if ($query) {
+            $shows = Show::where('title', 'LIKE', "%{$query}%")->get();
+        } else {
+            $shows = Show::all();
+        }
+
+        return view('show.index', [
+            'shows' => $shows,
+            'resource' => 'spectacles',
+        ]);
+    }
+        
     /**
      * Show the form for creating a new resource.
      */
