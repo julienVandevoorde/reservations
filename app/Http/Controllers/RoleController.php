@@ -44,7 +44,17 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $role = Role::find($id);
+
+        if(!$role) {
+            return redirect()->route('role.index')->with('error', 'Role not found');
+        }
+
+        return view('role.edit', [
+            'role' => $role
+        ]);
+
     }
 
     /**
@@ -52,8 +62,17 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $validated = $request->validate([
+            'role' => 'required|max:30'
+        ]);
+
+        $role = Role::find($id);
+    
+    $role->update($validated);
+    return view('role.show', [
+        'role' => $role
+    ]);
+}
 
     /**
      * Remove the specified resource from storage.

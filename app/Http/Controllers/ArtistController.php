@@ -33,22 +33,7 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //Validation des données du formulaire
-        $validated = $request->validate([
-            'firstname' => 'required|max:60',
-            'lastname' => 'required|max:60',
-        ]);
-
-	   //Le formulaire a été validé, nous créons un nouvel artiste à insérer
-        $artist = new Artist();
-
-        //Assignation des données et sauvegarde dans la base de données
-        $artist->firstname = $validated['firstname'];
-        $artist->lastname = $validated['lastname'];
-
-        $artist->save();
-
-        return redirect()->route('artist.index');
+        
     }
 
 
@@ -70,18 +55,18 @@ class ArtistController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-{
-    $artist = Artist::find($id);
-    
-    if (!$artist) {
-        // Gérer le cas où l'artiste n'est pas trouvé
-        return redirect()->route('artist.index')->with('error', 'Artiste non trouvé');
-    }
+    {
+        $artist = Artist::find($id);
+        
+        if (!$artist) {
+            // Gérer le cas où l'artiste n'est pas trouvé
+            return redirect()->route('artist.index')->with('error', 'Artiste non trouvé');
+        }
 
-    return view('artist.edit', [
-        'artist' => $artist,
-    ]);
-}
+        return view('artist.edit', [
+            'artist' => $artist,
+        ]);
+    }
 
 
     /**

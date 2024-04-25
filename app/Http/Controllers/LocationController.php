@@ -14,12 +14,11 @@ class LocationController extends Controller
     {
         $locations = Location::all();
         
-        return view('location.index',[
+        return view('location.index', [
             'locations' => $locations,
             'resource' => 'lieux',
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -44,18 +43,25 @@ class LocationController extends Controller
     {
         $location = Location::find($id);
         
-        return view('location.show',[
+        return view('location.show', [
             'location' => $location,
         ]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $location = Location::find($id);
+        
+        if (!$location) {
+            return redirect()->route('location.index')->with('error', 'Lieu non trouve');
+        }
+
+        return view('location.edit', [
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -63,7 +69,18 @@ class LocationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'postal_code' => 'required|max:6',
+            'locality' => 'required|max:60',
+        ]);
+    
+        $location = Location::find($id);    
+
+        $location->update($validated);
+        
+        return view('location.show', [
+            'location' => $location,
+        ]);
     }
 
     /**

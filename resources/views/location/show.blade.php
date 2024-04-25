@@ -32,5 +32,8 @@
         </ul>
     </article>
 
+    <div><a href="{{ route('location.edit' ,$location->id) }}">Modifier</a></div>
+
     <nav><a href="{{ route('location.index') }}">Retour à l'index</a></nav>
+    
 @endsection

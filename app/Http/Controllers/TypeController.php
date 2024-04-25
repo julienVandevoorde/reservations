@@ -54,7 +54,15 @@ class TypeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $type = Type::find($id);
+        
+        if(!$type){
+            return redirect()->route('type.index')->with('error', 'Type introuvable');
+        }
+
+        return view('type.edit',[
+            'type' => $type,
+        ]);
     }
 
     /**
@@ -62,7 +70,17 @@ class TypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Validation des données du formulaires
+        $valitated = $request->validate([
+            'type' => 'required|max:60'
+        ]);
+
+        $type = Type::find($id);
+        $type->update($valitated);
+
+        return view('type.show',[
+            'type' => $type,
+        ]);
     }
 
     /**
