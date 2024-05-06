@@ -11,5 +11,15 @@ class RoleUser extends Model
 
     protected $table = 'role_user';
 
-    public $timestamp = false;
+    public $timestamps = false;
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

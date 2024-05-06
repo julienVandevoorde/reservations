@@ -10,10 +10,19 @@ class RepresentationUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'place',
+        'places',
     ];
 
     protected $table = 'representation_user';
 
-    public $timestamp = false;
+    public $timestamps = false;
+
+    public function representation(){
+        return $this->belongsTo(Representation::class, 'representation_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

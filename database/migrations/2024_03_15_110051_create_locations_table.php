@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 60);
+            $table->string('slug', 60)->unique();
             $table->string('designation', 60);
             $table->string('address', 255);
-            $table->integer('locality_id', 11);
             $table->string('website', 255);
-            $table->string('phone', 30);
+            $table->string('phone', 30)->nullable();
+            $table->foreignId('locality_id')->constrained('localities')->onDelete('cascade');
         });
     }
 
