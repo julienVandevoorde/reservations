@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 60);
+            $table->string('slug', 60)->unique();
             $table->string('title', 60);            
-            $table->string('text');            
-            $table->string('poster_url', 255);            
-            $table->integer('location_id');            
-            $table->tinyInteger('bookable', 1);            
+            $table->text('description')->nullable();            
+            $table->string('poster_url', 255)->nullable();            
+            $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');            
+            $table->boolean('bookable');            
             $table->decimal('price');
         });
     }

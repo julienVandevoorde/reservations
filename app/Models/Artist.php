@@ -17,4 +17,8 @@ class Artist extends Model
     protected $table = 'artists';
 
     public $timestamps = false;
+
+    public function types(){
+        return $this->belongsToMany(Type::class, 'artist_type', 'artist_id', 'type_id');
+    }
 }

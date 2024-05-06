@@ -9,7 +9,25 @@ class ArtistType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'artist_id',
+        'type_id',
+    ];
+
     protected $table = 'artist_type';
 
-    public $timestamp = false;
+    public $timestamps = false;
+
+    public function artists(){
+        return $this->belongsTo(Artist::class, 'artist_id');
+    }
+
+    public function types(){
+        return $this->belongsTo(Type::class, 'type_id');
+    }
+
+    public function shows(){
+        return $this->belongsToMany(Show::class, 'artist_type_show', 'artist_type_id', 'show_id');
+    }
+
 }

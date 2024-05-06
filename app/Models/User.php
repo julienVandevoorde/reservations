@@ -47,5 +47,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public $timestamps = false;
+
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+    
+    public function representations(){
+        return $this->belongsToMany(Representation::class, 'representation_user', 'user_id', 'representation_id');
+    }
 }
