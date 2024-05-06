@@ -43,23 +43,25 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach ($users as $userData) {
-            $user = User::create($userData);
-        
-            $role = Role::where('role', 'admin')->first();
-            if ($role) {
-                $user->roles()->attach($role);
-            }
-        
-            // Sélectionner toutes les représentations
-            $representations = Representation::all();
-        
-            // Sélectionner entre 1 et 4 représentations aléatoirement
-            $randomRepresentations = $representations->random(mt_rand(1, 4));
-        
-            // Attacher les représentations à l'utilisateur
-            $user->representations()->attach($randomRepresentations->pluck('id'));
-        }
-        
+        /*
+foreach ($users as $userData) {
+    $user = User::create($userData);
+
+    $role = Role::where('role', 'admin')->first();
+    if ($role) {
+        $user->roles()->attach($role);
+    }
+
+    // Sélectionner toutes les représentations
+    $representations = Representation::all();
+
+    // Sélectionner entre 1 et 4 représentations aléatoirement
+    $randomRepresentations = $representations->random(mt_rand(1, 4));
+
+    // Attacher les représentations à l'utilisateur
+    $user->representations()->attach($randomRepresentations->pluck('id'));
+}
+*/
+
     }   
 }
