@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('representation_id')->constrained()->onDelete('cascade'); // Clé étrangère vers la table representations
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Clé étrangère vers la table users
-            $table->integer('places');
+            $table->integer('places')->nullable();
         });
     }
 
