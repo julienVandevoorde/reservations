@@ -28,6 +28,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('show.index') }}">Show</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('representation.index') }}">Representation</a>
+            </li>
         </ul>
     </div>
 </nav>

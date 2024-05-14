@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,11 +75,18 @@ Route::get('/show/{id}', [ShowController::class, 'show'])
 
 Route::get('/recherche', [ShowController::class, 'search'])->name('search.show');
 
-
-
 //Representation	
 Route::get('/representation', [RepresentationController::class, 'index'])
 					->name('representation.index');
 Route::get('/representation/{id}', [RepresentationController::class, 'show'])
 					->where('id', '[0-9]+')->name('representation.show');
+Route::get('/representation/{id}/book', [RepresentationController::class, 'book'])
+					->where('id', '[0-9]+')->name('representation.book');
 
+//Reservation
+Route::post('/reservation', [ReservationController::class, 'store'])
+					->where('id', '[0-9]+')->name('reservation.store');
+
+Route::post('/reservation/pay', [ReservationController::class, 'pay'])
+					->where('id', '[0-9]+')->name('reservation.pay');
+					
