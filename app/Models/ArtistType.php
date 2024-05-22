@@ -18,11 +18,11 @@ class ArtistType extends Model
 
     public $timestamps = false;
 
-    public function artists(){
+    public function artist(){
         return $this->belongsTo(Artist::class, 'artist_id');
     }
 
-    public function types(){
+    public function type(){
         return $this->belongsTo(Type::class, 'type_id');
     }
 

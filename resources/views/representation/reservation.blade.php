@@ -3,6 +3,94 @@
 @section('title', 'Résumé de la réservation')
 
 @section('content')
+<style>
+        .reservation-summary {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #card-element {
+            margin-top: 20px;
+        }
+
+        #submit {
+            display: block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
     <div class="reservation-summary">
         <h1>Résumé de la réservation</h1>
         

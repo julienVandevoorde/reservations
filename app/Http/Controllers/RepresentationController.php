@@ -83,7 +83,6 @@ class RepresentationController extends Controller
     {
         //
     }
-<<<<<<< HEAD
     
 
     public function reservation(string $id)
@@ -131,7 +130,7 @@ class RepresentationController extends Controller
     {
         return view('payment.succes'); 
     }
-=======
+
 
     public function book(Request $request,string $id)
     {
@@ -146,5 +145,4 @@ class RepresentationController extends Controller
             'time' => $time,
         ]);
     }
->>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
 }

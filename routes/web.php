@@ -80,7 +80,7 @@ Route::get('/representation', [RepresentationController::class, 'index'])
 					->name('representation.index');
 Route::get('/representation/{id}', [RepresentationController::class, 'show'])
 					->where('id', '[0-9]+')->name('representation.show');
-<<<<<<< HEAD
+
 Route::post('/representation/reservation/{id}', [RepresentationController::class, 'reservation'])
 					->where('id', '[0-9]+')
 					->name('representation.reservation');
@@ -88,11 +88,8 @@ Route::post('/handle-payment', [RepresentationController::class, 'handlePayment'
 					->name('handle.payment');
 Route::get('/payment-success', [RepresentationController::class, 'paymentSuccess'])
 					->name('payment.success');
-
-=======
 Route::get('/representation/{id}/book', [RepresentationController::class, 'book'])
 					->where('id', '[0-9]+')->name('representation.book');
->>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
 
 //Reservation
 Route::post('/reservation', [ReservationController::class, 'store'])

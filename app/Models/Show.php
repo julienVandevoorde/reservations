@@ -23,17 +23,18 @@ class Show extends Model
 
     public $timestamps = true;
 
-    public function artistsTypes(){
+    public function artistTypes()
+    {
         return $this->belongsToMany(ArtistType::class, 'artist_type_show', 'show_id', 'artist_type_id');
     }
 
-    public function location(){
+    public function location()
+    {
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    public function representations(){  
-        return $this->hasMany(Representation::class, 'show_id');   
+    public function representations()
+    {
+        return $this->hasMany(Representation::class, 'show_id');
     }
-    
-
 }

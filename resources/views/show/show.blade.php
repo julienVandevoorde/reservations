@@ -3,14 +3,46 @@
 @section('title', 'Fiche d\'un spectacle')
 
 @section('content')
+    <style>
+        .show-details-content {
+            position: relative;
+        }
+
+        .poster-container {
+            float: right;
+            margin: 0 0 10px 10px;
+        }
+
+        .poster-image {
+            width: 300px; /* Augmenté la largeur de l'image */
+        }
+
+        .representation-item {
+            display: flex;
+            justify-content: flex-start; /* Alignement à gauche */
+            align-items: center;
+            margin-bottom: 10px; /* Ajouter un espace entre les éléments */
+        }
+
+        .representation-item span {
+            margin-right: 10px; /* Espace entre le texte et le bouton */
+        }
+
+        .reservation-form {
+            margin-left: 0; /* Réinitialiser la marge gauche */
+        }
+    </style>
+
     <div class="show-details-content">
         <article>
             <h1>{{ $show->title }}</h1>
                 
             @if($show->poster_url)
-            <p><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></p>
+            <div class="poster-container">
+                <img src="{{ asset($show->poster_url) }}" alt="{{ $show->title }}" class="poster-image">
+            </div>
             @else
-            <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
+            <canvas width="300" height="150" style="border:1px solid #000000;"></canvas>
             @endif
             
             @if($show->description)
@@ -31,81 +63,47 @@
             
             <h2>Liste des représentations</h2>
             @if($show->representations && $show->representations->count() >= 1)
-<<<<<<< HEAD
             <ul>
                 @foreach ($show->representations as $representation)
-                    <li>{{ $representation->when }} 
-                    @if($representation->location)
-                    ({{ $representation->location->designation }})
-                    @elseif($representation->show->location)
-                    ({{ $representation->show->location->designation }})
-                    @else
-                    (lieu à déterminer)
-                    @endif
-                    <form action="{{ route('representation.reservation', ['id' => $representation->id]) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="representation_id" value="{{ $representation->id }}">
-                        <!-- Autres champs de formulaire pour la réservation -->
-                        <button type="submit">Réserver</button>
-                    </form>
+                    <li class="representation-item">
+                        <span>{{ $representation->when }} 
+                            @if($representation->location)
+                            ({{ $representation->location->designation }})
+                            @elseif($representation->show->location)
+                            ({{ $representation->show->location->designation }})
+                            @else
+                            (lieu à déterminer)
+                            @endif
+                        </span>
+                        <form class="reservation-form" action="{{ route('representation.reservation', ['id' => $representation->id]) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="representation_id" value="{{ $representation->id }}">
+                            <!-- Autres champs de formulaire pour la réservation -->
+                            <button type="submit">Réserver</button>
+                        </form>
                     </li>
                 @endforeach
             </ul>
-=======
-                <ul>
-                    @foreach ($show->representations as $representation)
-                        <li>
-                            {{ $representation->when }} 
-                            @if($representation->location)
-                                ({{ $representation->location->designation }})
-                            @elseif($show->location)
-                                ({{ $show->location->designation }})
-                            @else
-                                (lieu à déterminer)
-                            @endif
-                            <a href="{{ route('representation.book', $representation->id) }}" class="btn btn-primary">Réserver</a>
-                        </li>
-                    @endforeach
-                </ul>
->>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
             @else
                 <p>Aucune représentation</p>
             @endif
 
+            
             <h2>Liste des artistes</h2>
-            @if(isset($collaborateurs['auteur']))
-            <p><strong>Auteur:</strong>
-            @foreach ($collaborateurs['auteur'] as $auteur)
-                {{ $auteur->firstname }} 
-                {{ $auteur->lastname }}@if($loop->iteration == $loop->count-1) et 
-                @elseif(!$loop->last), @endif
-            @endforeach
-            </p>
-            @endif
-
-            @if(isset($collaborateurs['scénographe']))
-            <p><strong>Metteur en scène:</strong>
-            @foreach ($collaborateurs['scénographe'] as $scenographe)
-                {{ $scenographe->firstname }} 
-                {{ $scenographe->lastname }}@if($loop->iteration == $loop->count-1) et 
-                @elseif(!$loop->last), @endif
-            @endforeach
-            </p>
-            @endif
-
-            @if(isset($collaborateurs['comédien']))
-            <p><strong>Distribution:</strong>
-            @foreach ($collaborateurs['comédien'] as $comedien)
-                {{ $comedien->firstname }} 
-                {{ $comedien->lastname }}@if($loop->iteration == $loop->count-1) et 
-                @elseif(!$loop->last), @endif
-            @endforeach
-            </p>
+            @if($show->artistTypes->isNotEmpty())
+                <ul>
+                    @foreach ($show->artistTypes as $artistType)
+                        @if ($artistType->artist)
+                            <li>{{ $artistType->artist->firstname }} {{ $artistType->artist->lastname }}</li>
+                        @endif
+                    @endforeach
+                </ul>
+            @else
+                <p>Aucun artiste n'est associé à ce spectacle.</p>
             @endif
 
         </article>
         
-        <nav><a href="{{ route('show.index') }}">Retour à l'index</a></nav>
+        <nav><a href="{{ route('show.index') }}">Retour aux shows</a></nav>
     </div>
 @endsection
-
