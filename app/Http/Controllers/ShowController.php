@@ -56,6 +56,7 @@ class ShowController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
+<<<<<<< HEAD
     {
         $show = Show::find($id);
     
@@ -76,9 +77,26 @@ class ShowController extends Controller
             'show' => $show,
             'collaborateurs' => $collaborateurs,
         ]);    
+=======
+{
+    $show = Show::find($id);
+
+    $collaborateurs = [];
+
+    if ($show->artistTypes) {
+        foreach($show->artistTypes as $at) {
+            $collaborateurs[$at->type->type][] = $at->artist;
+        }
+>>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
     }
     
 
+
+    return view('show.show', [
+        'show' => $show,
+        'collaborateurs' => $collaborateurs,
+    ]);    
+}
 
 
     /**

@@ -83,6 +83,7 @@ class RepresentationController extends Controller
     {
         //
     }
+<<<<<<< HEAD
     
 
     public function reservation(string $id)
@@ -130,4 +131,20 @@ class RepresentationController extends Controller
     {
         return view('payment.succes'); 
     }
+=======
+
+    public function book(Request $request,string $id)
+    {
+
+        $representation = Representation::find($id);
+        $date = Carbon::parse($representation->when)->format('d/m/Y');
+        $time = Carbon::parse($representation->when)->format('H:i');
+        
+        return view('representation.book',[
+            'representation' => $representation,
+            'date' => $date,
+            'time' => $time,
+        ]);
+    }
+>>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
 }

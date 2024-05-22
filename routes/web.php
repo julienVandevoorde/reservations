@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,13 +75,12 @@ Route::get('/show/{id}', [ShowController::class, 'show'])
 
 Route::get('/recherche', [ShowController::class, 'search'])->name('search.show');
 
-
-
 //Representation	
 Route::get('/representation', [RepresentationController::class, 'index'])
 					->name('representation.index');
 Route::get('/representation/{id}', [RepresentationController::class, 'show'])
 					->where('id', '[0-9]+')->name('representation.show');
+<<<<<<< HEAD
 Route::post('/representation/reservation/{id}', [RepresentationController::class, 'reservation'])
 					->where('id', '[0-9]+')
 					->name('representation.reservation');
@@ -89,4 +89,15 @@ Route::post('/handle-payment', [RepresentationController::class, 'handlePayment'
 Route::get('/payment-success', [RepresentationController::class, 'paymentSuccess'])
 					->name('payment.success');
 
+=======
+Route::get('/representation/{id}/book', [RepresentationController::class, 'book'])
+					->where('id', '[0-9]+')->name('representation.book');
+>>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
 
+//Reservation
+Route::post('/reservation', [ReservationController::class, 'store'])
+					->where('id', '[0-9]+')->name('reservation.store');
+
+Route::post('/reservation/pay', [ReservationController::class, 'pay'])
+					->where('id', '[0-9]+')->name('reservation.pay');
+					

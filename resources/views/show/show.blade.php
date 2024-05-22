@@ -31,6 +31,7 @@
             
             <h2>Liste des représentations</h2>
             @if($show->representations && $show->representations->count() >= 1)
+<<<<<<< HEAD
             <ul>
                 @foreach ($show->representations as $representation)
                     <li>{{ $representation->when }} 
@@ -50,8 +51,25 @@
                     </li>
                 @endforeach
             </ul>
+=======
+                <ul>
+                    @foreach ($show->representations as $representation)
+                        <li>
+                            {{ $representation->when }} 
+                            @if($representation->location)
+                                ({{ $representation->location->designation }})
+                            @elseif($show->location)
+                                ({{ $show->location->designation }})
+                            @else
+                                (lieu à déterminer)
+                            @endif
+                            <a href="{{ route('representation.book', $representation->id) }}" class="btn btn-primary">Réserver</a>
+                        </li>
+                    @endforeach
+                </ul>
+>>>>>>> 1fc54391aa747ee74d8771c4b295bdf89f33fcd6
             @else
-            <p>Aucune représentation</p>
+                <p>Aucune représentation</p>
             @endif
 
             <h2>Liste des artistes</h2>
