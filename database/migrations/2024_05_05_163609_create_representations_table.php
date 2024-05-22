@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('show_id')->constrained()->onDelete('cascade'); // Clé étrangère vers la table shows
             $table->dateTime('when');
-            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');
+
         });
     }
 

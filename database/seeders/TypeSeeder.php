@@ -14,7 +14,9 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        Type::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('artist_type')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         
         //Define data
        $types = [

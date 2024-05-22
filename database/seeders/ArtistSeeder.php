@@ -22,8 +22,6 @@ class ArtistSeeder extends Seeder{
         Artist::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-    
-        Artist::truncate();
         
         //Define data
        $artists = [

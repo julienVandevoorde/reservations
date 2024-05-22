@@ -14,7 +14,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('artist_type')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         $roles = [
             ['role'=>'admin'],

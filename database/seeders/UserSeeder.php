@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        /*
+        
 foreach ($users as $userData) {
     $user = User::create($userData);
 
@@ -61,7 +61,7 @@ foreach ($users as $userData) {
     // Attacher les représentations à l'utilisateur
     $user->representations()->attach($randomRepresentations->pluck('id'));
 }
-*/
+
 
     }   
 }

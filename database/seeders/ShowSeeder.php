@@ -23,7 +23,6 @@ class ShowSeeder extends Seeder
       Show::truncate();
       DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Show::truncate();
         
         //Define data
         $shows = [

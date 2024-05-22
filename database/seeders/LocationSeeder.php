@@ -19,11 +19,15 @@ class LocationSeeder extends Seeder
     public function run()
     {
 
+        // Désactiver temporairement les contraintes de clé étrangère
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        // Tronquer la table
         Location::truncate();
+
+        // Réactiver les contraintes de clé étrangère
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Location::truncate();
 
         $locations = [
             [
@@ -71,5 +75,7 @@ class LocationSeeder extends Seeder
         }
 
         DB::table('locations')->insert($locations);
+
+        
     }
 }
