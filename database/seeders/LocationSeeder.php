@@ -23,7 +23,6 @@ class LocationSeeder extends Seeder
         Location::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Location::truncate();
 
         $locations = [
             [
@@ -39,7 +38,7 @@ class LocationSeeder extends Seeder
                 'designation'=>'Dexia Art Center',
                 'address'=>'50 rue de l\'Ecuyer',
                 'locality_postal_code'=>'1000',
-                'website'=>null,
+                'website'=>'http://www.dexia-art-center.be/',
                 'phone'=>null,
             ],
             [

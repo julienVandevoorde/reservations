@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB; 
 use App\Models\Role;
 
 class RoleSeeder extends Seeder
@@ -14,14 +12,21 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::truncate();
+        // Supprimer toutes les données existantes dans la table
+        Role::query()->delete();
 
+        // Définir les données à insérer
         $roles = [
-            ['role'=>'admin'],
-            ['role'=>'user'],
+            ['role' => 'admin'],
+            ['role' => 'user'],
         ];
-        
 
-        DB::table('roles')->insert($roles);
+        // Insérer les données dans la table
+        foreach ($roles as $roleData) {
+            // Créer une nouvelle instance du modèle Role avec les données
+            $role = new Role($roleData);
+            // Enregistrer le nouveau rôle dans la base de données
+            $role->save();
+        }
     }
 }

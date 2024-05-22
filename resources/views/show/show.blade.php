@@ -41,6 +41,12 @@
                     @else
                     (lieu à déterminer)
                     @endif
+                    <form action="{{ route('representation.reservation', ['id' => $representation->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="representation_id" value="{{ $representation->id }}">
+                        <!-- Autres champs de formulaire pour la réservation -->
+                        <button type="submit">Réserver</button>
+                    </form>
                     </li>
                 @endforeach
             </ul>
@@ -85,4 +91,3 @@
     </div>
 @endsection
 
-<!-- ... Styles ... -->

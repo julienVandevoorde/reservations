@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Representation;
 use Carbon\Carbon;
+use App\Models\Show;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 
 class RepresentationController extends Controller
 {
@@ -79,5 +82,52 @@ class RepresentationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    
+
+    public function reservation(string $id)
+    {
+        $show = Show::find($id);
+        $representation = Representation::find($id);
+    
+        return view('representation.reservation', [
+            'show' => $show,
+            'representation' => $representation,
+        ]);
+    }
+
+    public function handlePayment(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $amount = $request->num_tickets * $request->price_per_ticket * 100; 
+        $paymentMethod = $request->payment_method;
+        $returnUrl = route('payment.success'); 
+
+        try {
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $amount,
+                'currency' => 'eur',
+                'payment_method' => $paymentMethod,
+                'confirmation_method' => 'manual',
+                'confirm' => true,
+                'return_url' => $returnUrl,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'paymentIntent' => $paymentIntent,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+        public function paymentSuccess()
+    {
+        return view('payment.succes'); 
     }
 }

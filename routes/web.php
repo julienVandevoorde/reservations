@@ -81,4 +81,12 @@ Route::get('/representation', [RepresentationController::class, 'index'])
 					->name('representation.index');
 Route::get('/representation/{id}', [RepresentationController::class, 'show'])
 					->where('id', '[0-9]+')->name('representation.show');
+Route::post('/representation/reservation/{id}', [RepresentationController::class, 'reservation'])
+					->where('id', '[0-9]+')
+					->name('representation.reservation');
+Route::post('/handle-payment', [RepresentationController::class, 'handlePayment'])
+					->name('handle.payment');
+Route::get('/payment-success', [RepresentationController::class, 'paymentSuccess'])
+					->name('payment.success');
+
 
