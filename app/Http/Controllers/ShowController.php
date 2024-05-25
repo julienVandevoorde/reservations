@@ -55,24 +55,20 @@ class ShowController extends Controller
     /**
      * Display the specified resource.
      */
+
+     
     public function show(string $id)
     {
-        $show = Show::find($id);
-
-        //Récupérer les artistes du spectacle et les grouper par type
-        $collaborateurs = [];
-        
-        foreach($show->artistTypes as $at) {
-            $collaborateurs[$at->type->type][] = $at->artist;
+        $show = Show::with('artistTypes.artist')->find($id);
+    
+        if (!$show) {
+            return response()->view('errors.404', [], 404);
         }
         
-
-        return view('show.show',[
+        return view('show.show', [
             'show' => $show,
-            'collaborateurs' => $collaborateurs,
         ]);    
     }
-
 
     /**
      * Show the form for editing the specified resource.

@@ -19,7 +19,7 @@
         <div class="show-cards">
             @foreach($shows as $show)
                 <div class="show-card">
-                    <img src="{{ asset($show->image_path) }}" alt="{{ $show->title }}" class="show-image">
+                    <img src="{{ asset($show->poster_url) }}" alt="{{ $show->title }}" class="show-image">
                     <div class="show-info">
                         <h2>{{ $show->title }}</h2>
                         <p>

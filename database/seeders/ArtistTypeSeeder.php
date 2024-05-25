@@ -113,11 +113,6 @@ class ArtistTypeSeeder extends Seeder
                 'type'=>'auteur',
             ],
             [
-                'artist_firstname'=>'Philippe',
-                'artist_lastname'=>'Laurent',
-                'type'=>'scénographe',
-            ],
-            [
                 'artist_firstname'=>'Pierre',
                 'artist_lastname'=>'Wayburn',
                 'type'=>'comédien',

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title', 60);            
             $table->text('description')->nullable();            
             $table->string('poster_url', 255)->nullable();            
-            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');             
+            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');            
             $table->boolean('bookable');            
             $table->decimal('price');
         });
@@ -31,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('shows');
     }
 };
+
