@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use Laravel\Cashier\Cashier;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,14 +16,5 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         Schema::defaultStringLength(191);
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-        Cashier::useCustomerModel(User::class);
     }
 }

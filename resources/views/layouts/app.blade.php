@@ -32,6 +32,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('representation.index') }}">Representation</a>
                 </li>
+
+                @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">Connexion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">Inscription</a>
+            </li>
+            @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Déconnexion
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+            @endauth
             </ul>
         </div>
     </nav>

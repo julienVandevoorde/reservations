@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('slug', 60)->unique();
             $table->string('designation', 60);
             $table->string('address', 255);
-            $table->string('website', 255);
+            $table->string('website', 255)->nullable();
             $table->string('phone', 30)->nullable();
             $table->foreignId('locality_id')->constrained('localities')->onDelete('cascade');
         });

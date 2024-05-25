@@ -9,6 +9,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,16 @@ use App\Http\Controllers\ReservationController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+//authentification
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [AuthController::class, 'register']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
 
 //Artist
 Route::get('/artist', [ArtistController::class, 'index'])->name('artist.index');
