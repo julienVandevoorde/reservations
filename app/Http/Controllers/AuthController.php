@@ -44,21 +44,44 @@ class AuthController extends Controller
 
     // Traite l'inscription de l'utilisateur
     public function register(Request $request) {
+        $messages = [
+            'login.required' => 'Le champ login est obligatoire.',
+            'firstname.required' => 'Le champ prénom est obligatoire.',
+            'lastname.required' => 'Le champ nom est obligatoire.',
+            'email.required' => 'Le champ email est obligatoire.',
+            'email.email' => 'L\'adresse email doit être une adresse email valide.',
+            'email.unique' => 'Cette adresse email est déjà utilisée.',
+            'password.required' => 'Le mot de passe est obligatoire.',
+            'password.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+            'langue.required' => 'Le choix de la langue est obligatoire.',
+        ];
+    
         $request->validate([
-            'login' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
+            'login' => 'required|string|max:30',
+            'firstname' => 'required|string|max:60',
+            'lastname' => 'required|string|max:60',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'langue' => 'required|string|max:2'
+        ], $messages);
+    
         $user = User::create([
             'login' => $request->login,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
             'email' => $request->email,
+            'langue' => $request->langue,
             'password' => Hash::make($request->password),
         ]);
-
+    
         Auth::login($user);
+        //message de bienvenue
+        session()->flash('welcome', 'Bienvenue, ' . $user->firstname . '! Votre compte a été créé avec succès.');
         return redirect()->route('welcome');
     }
+    
+    
 
     // Déconnecte l'utilisateur
     public function logout(Request $request) {
