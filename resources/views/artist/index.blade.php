@@ -7,8 +7,9 @@
         <h1>Liste des artistes</h1>
 
         <ul class="button-list">
-            <li><a href="{{ route('artist.create') }}" class="button">Ajouter</a></li> 
-            <li><a href="{{ route('welcome') }}" class="button">Retour à l'accueil</a></li>
+            @if(auth()->check() && auth()->user()->isAdmin())
+                <li><a href="{{ route('artist.create') }}" class="button">Ajouter</a></li>
+            @endif
         </ul>
         
         <table class="artist-table">
@@ -24,7 +25,9 @@
                     <td>{{ $artist->firstname }} {{ $artist->lastname }}</td>
                     <td>
                         <a href="{{ route('artist.show', $artist->id) }}" class="button">Voir détails</a>
-                        <a href="{{ route('artist.edit', $artist->id) }}" class="button">Modifier</a>
+                        @if(auth()->check() && auth()->user()->isAdmin())
+                            <a href="{{ route('artist.edit', $artist->id) }}" class="button">Modifier</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -33,8 +36,6 @@
     </div>
 
     <style>
-        /* Styles spécifiques pour la page Liste des artistes */
-
         .container {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;

@@ -3,89 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\Type;
 
 class TypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $types = Type::all();
         
-        return view('type.index',[
+        return view('type.index', [
             'types' => $types,
             'resource' => 'types',
         ]);
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $type = Type::find($id);
         
-        return view('type.show',[
+        return view('type.show', [
             'type' => $type,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $type = Type::find($id);
         
-        if(!$type){
+        if (!$type) {
             return redirect()->route('type.index')->with('error', 'Type introuvable');
         }
 
-        return view('type.edit',[
+        try {
+            $this->authorize('update', $type);
+        } catch (AuthorizationException $e) {
+            return redirect()->route('type.index')->with('error', 'Vous n\'êtes pas autorisé à modifier ce type.');
+        }
+
+        return view('type.edit', [
             'type' => $type,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //Validation des données du formulaires
-        $valitated = $request->validate([
+        $validated = $request->validate([
             'type' => 'required|max:60'
         ]);
 
         $type = Type::find($id);
-        $type->update($valitated);
+        $type->update($validated);
 
-        return view('type.show',[
+        return view('type.show', [
             'type' => $type,
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

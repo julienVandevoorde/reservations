@@ -19,14 +19,15 @@
             <p>Erreur: Aucune information sur les artistes pour ce type.</p>
         @endif
 
-        <a href="{{ route('type.edit', $type->id) }}" class="button">Modifier</a>
-
-        <nav><a href="{{ route('type.index') }}">Retour à l'index</a></nav>
+        @auth
+            @if(auth()->user()->isAdmin())
+                <a href="{{ route('type.edit', $type->id) }}" class="button">Modifier</a>
+            @endif
+        @endauth
     </div>
 @endsection
 
 <style>
-    /* Styles spécifiques pour la page Fiche d'un type */
 
     .type-content {
         font-family: Arial, sans-serif;

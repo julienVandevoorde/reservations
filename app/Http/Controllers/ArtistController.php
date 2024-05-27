@@ -7,60 +7,71 @@ use App\Models\Artist;
 
 class ArtistController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-{
-    $artists = Artist::all();
+    {
+        $artists = Artist::all();
 
-    return view('artist.index', [
-        'artists' => $artists, 
-    ]);
-}
+        return view('artist.index', [
+            'artists' => $artists, 
+        ]);
+    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        if (!auth()->check()) {
+            return redirect()->route('artist.index')->with('error', 'Vous devez être connecté pour accéder à cette page.');
+        }
+
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->route('artist.index')->with('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+        }
+
         return view('artist.create');
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        
+        $validated = $request->validate([
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+        ]);
+
+        $artist = new Artist();
+        $artist->firstname = $validated['firstname'];
+        $artist->lastname = $validated['lastname'];
+
+        $artist->save();
+
+        return redirect()->route('artist.index')->with('success', 'Artiste créé avec succès.');
     }
 
-
-
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $artist = Artist::find($id);
-        
-        return view('artist.show',[
+
+        if (!$artist) {
+            return redirect()->route('artist.index')->with('error', 'Artiste non trouvé');
+        }
+
+        return view('artist.show', [
             'artist' => $artist,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('artist.index')->with('error', 'Vous devez être connecté pour accéder à cette page.');
+        }
+
         $artist = Artist::find($id);
         
         if (!$artist) {
-            // Gérer le cas où l'artiste n'est pas trouvé
             return redirect()->route('artist.index')->with('error', 'Artiste non trouvé');
+        }
+
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->route('artist.index')->with('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
         }
 
         return view('artist.edit', [
@@ -68,38 +79,26 @@ class ArtistController extends Controller
         ]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-	   //Validation des données du formulaire
         $validated = $request->validate([
             'firstname' => 'required|max:60',
             'lastname' => 'required|max:60',
         ]);
 
-	   //Le formulaire a été validé, nous récupérons l’artiste à modifier
         $artist = Artist::find($id);
 
-	   //Mise à jour des données modifiées et sauvegarde dans la base de données
         $artist->update($validated);
 
-        return view('artist.show',[
+        return view('artist.show', [
             'artist' => $artist,
         ]);
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         Artist::destroy($id);
 
         return redirect()->route('artist.index');
     }
-
 }

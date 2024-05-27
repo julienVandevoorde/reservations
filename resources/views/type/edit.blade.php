@@ -44,8 +44,6 @@
 @endsection
 
 <style>
-    /* Styles spécifiques pour la page Modifier un type */
-
     .type-edit-content {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;

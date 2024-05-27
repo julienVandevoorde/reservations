@@ -171,6 +171,7 @@
             decreaseButton.addEventListener('click', function() {
                 var currentValue = parseInt(numTicketsInput.value);
                 if (currentValue > 1) {
+                    num
                     numTicketsInput.value = currentValue - 1;
                     updatePrice();
                 }

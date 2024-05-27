@@ -7,9 +7,6 @@ use App\Models\Location;
 
 class LocationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $locations = Location::all();
@@ -20,25 +17,16 @@ class LocationController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $location = Location::find($id);
@@ -48,25 +36,25 @@ class LocationController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('location.index')->with('error', 'Vous devez être connecté pour accéder à cette page.');
+        }
+
         $location = Location::find($id);
         
         if (!$location) {
-            return redirect()->route('location.index')->with('error', 'Lieu non trouve');
+            return redirect()->route('location.index')->with('error', 'Lieu de spectacle non trouvé');
         }
 
-        return view('location.edit', [
-            'location' => $location,
-        ]);
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->route('location.index')->with('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+        }
+
+        return view('location.edit', compact('location'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -83,9 +71,6 @@ class LocationController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

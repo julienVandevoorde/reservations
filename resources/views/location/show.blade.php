@@ -4,50 +4,49 @@
 
 @section('content')
     <style>
-        /* Styles pour la fiche d'un lieu de spectacle */
         .venue-card {
-            background-color: #fff; /* Couleur de fond */
-            border-radius: 8px; /* Coins arrondis */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
-            padding: 20px; /* Espacement intérieur */
-            margin-bottom: 20px; /* Marge en bas */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
         .venue-title {
-            font-size: 24px; /* Taille de la police pour le titre */
-            margin-bottom: 10px; /* Marge en bas */
-            color: #333; /* Couleur du texte */
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
         }
 
         .venue-address {
-            margin-bottom: 10px; /* Marge en bas */
-            color: #666; /* Couleur du texte */
+            margin-bottom: 10px;
+            color: #666;
         }
 
         .website-link {
-            color: #007bff; /* Couleur du lien */
-            text-decoration: none; /* Suppression du soulignement */
+            color: #007bff;
+            text-decoration: none;
         }
 
         .website-link:hover {
-            text-decoration: underline; /* Soulignement au survol */
+            text-decoration: underline;
         }
 
         .show-list {
-            margin-top: 20px; /* Marge en haut */
-            padding-left: 20px; /* Espacement à gauche */
-            list-style: none; /* Suppression des puces */
-            color: #666; /* Couleur du texte */
+            margin-top: 20px;
+            padding-left: 20px;
+            list-style: none;
+            color: #666;
         }
 
         .show-list li {
-            margin-bottom: 8px; /* Marge en bas */
+            margin-bottom: 8px;
         }
 
         .edit-link {
-            margin-top: 20px; /* Marge en haut */
-            text-align: right; /* Alignement à droite */
-            color: #007bff; /* Couleur du texte */
+            margin-top: 20px;
+            text-align: right;
+            color: #007bff;
         }
     </style>
 

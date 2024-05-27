@@ -20,20 +20,19 @@
                             <td>{{ $type->type }}</td>
                             <td>
                                 <a href="{{ route('type.show', $type->id) }}" class="btn btn-primary">Voir détails</a>
+                            @can('update', $type)
                                 <a href="{{ route('type.edit', $type->id) }}" class="btn btn-secondary">Modifier</a>
+                            @endcan
+
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-
-            <a href="{{ route('welcome') }}" class="btn btn-primary">Accueil</a>
         </div>
     </div>
 
     <style>
-        /* Styles spécifiques pour la page Liste des types d’artistes */
-
         .container {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;

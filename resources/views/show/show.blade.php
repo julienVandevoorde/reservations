@@ -14,22 +14,22 @@
         }
 
         .poster-image {
-            width: 300px; /* Augmenté la largeur de l'image */
+            width: 300px; 
         }
 
         .representation-item {
             display: flex;
-            justify-content: flex-start; /* Alignement à gauche */
+            justify-content: flex-start; 
             align-items: center;
-            margin-bottom: 10px; /* Ajouter un espace entre les éléments */
+            margin-bottom: 10px; 
         }
 
         .representation-item span {
-            margin-right: 10px; /* Espace entre le texte et le bouton */
+            margin-right: 10px; 
         }
 
         .reservation-form {
-            margin-left: 0; /* Réinitialiser la marge gauche */
+            margin-left: 0; 
         }
     </style>
 

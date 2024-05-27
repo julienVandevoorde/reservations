@@ -4,27 +4,27 @@
 
 @section('content')
     <style>
-        /* Styles pour la liste des lieux de spectacle */
+
         .venue-card {
-            border: 1px solid #ddd; /* Bordure de la carte */
-            border-radius: 8px; /* Coins arrondis */
-            padding: 20px; /* Espacement intérieur */
-            margin-bottom: 20px; /* Marge en bas */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .venue-name {
-            font-size: 20px; /* Taille de la police du nom du lieu */
-            margin-bottom: 10px; /* Marge en bas */
+            font-size: 20px;
+            margin-bottom: 10px;
         }
 
         .website-link {
-            color: #007bff; /* Couleur du lien */
-            text-decoration: none; /* Suppression du soulignement */
+            color: #007bff;
+            text-decoration: none;
         }
 
         .website-link:hover {
-            text-decoration: underline; /* Soulignement au survol */
+            text-decoration: underline;
         }
     </style>
 

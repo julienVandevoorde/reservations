@@ -1,4 +1,3 @@
-<!-- resources/views/artist/show.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Fiche d\'un artiste')
@@ -14,20 +13,26 @@
             @endforeach
         </ul>
 
-        <form method="post" action="{{ route('artist.delete', $artist->id) }}" class="delete-form">
-            @csrf
-            @method('DELETE')
-            <button class="delete-button">Supprimer</button>
-        </form>
+        @auth
+            @if(auth()->user()->isAdmin())
+                <form method="post" action="{{ route('artist.delete', $artist->id) }}" class="delete-form">
+                    @csrf
+                    @method('DELETE')
+                    <button class="delete-button">Supprimer</button>
+                </form>
 
-        <div class="artist-edit-link"><a href="{{ route('artist.edit', $artist->id) }}">Modifier</a></div>
+                <div class="artist-edit-link">
+                    <a href="{{ route('artist.edit', $artist->id) }}">Modifier</a>
+                </div>
+            @endif
+        @endauth
 
-        <nav class="artist-index-link"><a href="{{ route('artist.index') }}">Retour à l'index</a></nav>
+        <nav class="artist-index-link">
+            <a href="{{ route('artist.index') }}">Retour à l'index</a>
+        </nav>
     </div>
 
     <style>
-        /* Styles spécifiques pour la page d'affichage d'un artiste */
-
         .container {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
