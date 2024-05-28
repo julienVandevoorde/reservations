@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 
+
 class ShowController extends Controller
 {
     /**
@@ -12,32 +13,33 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $shows = Show::all();
+        $shows = Show::simplePaginate(2); 
         
         return view('show.index', [
             'shows' => $shows,
             'resource' => 'spectacles',
         ]);
     }
-
+    
     /**
      * Search for a show by title.
      */
     public function search(Request $request)
-    {
-        $query = $request->input('query');
+{
+    $query = $request->input('query');
 
-        if ($query) {
-            $shows = Show::where('title', 'LIKE', "%{$query}%")->get();
-        } else {
-            $shows = Show::all();
-        }
-
-        return view('show.index', [
-            'shows' => $shows,
-            'resource' => 'spectacles',
-        ]);
+    if ($query) {
+        $shows = Show::where('title', 'LIKE', "%{$query}%")->simplePaginate(2); 
+    } else {
+        $shows = Show::paginate(2); 
     }
+
+    return view('show.index', [
+        'shows' => $shows,
+        'resource' => 'spectacles',
+    ]);
+}
+
     /**
      * Store a newly created resource in storage.
      */
@@ -97,9 +99,14 @@ class ShowController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $show = Show::findOrFail($id);
+        $show = Show::find($id);
+
+        if (!$show) {
+            return response()->json(['message' => 'Show not found'], 404);
+        }
+
         $show->delete();
 
         return response()->json(null, 204);

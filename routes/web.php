@@ -72,6 +72,7 @@ Route::get('/show/edit/{id}', [ShowController::class, 'edit'])->where('id', '[0-
 Route::put('/show/{id}', [ShowController::class, 'update'])->where('id', '[0-9]+')->name('show.update');
 Route::post('/show', [ShowController::class, 'store'])->name('show.store');
 Route::get('/show/create', [ShowController::class, 'create'])->name('show.create');
+Route::delete('/show/{id}', [ShowController::class, 'destroy'])->name('show.destroy');
 
 // Representation routes
 Route::get('/representation', [RepresentationController::class, 'index'])->name('representation.index');

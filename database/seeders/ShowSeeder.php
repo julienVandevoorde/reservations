@@ -68,6 +68,16 @@ class ShowSeeder extends Seeder
                 'bookable' => true,
                 'price' => 10.50,
             ],
+            [
+                'slug' => 'laferme',
+                'title' => 'La ferme des ours',
+                'description' => 'Une équipe de chasseurs de ferme de l\'Havre, '  
+                    . 'sous le commandement de Pierre, est contrôle par une '
+                    . 'grande partie des ours de l\'Havre.',
+                'poster_url' => 'https://imgs.search.brave.com/Lau5Z_KdnnDWGQPsGS8NpN6eme3Qz9pqbwkEob7ot9s/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9m/L2ZiL0FuaW1hbF9G/YXJtXy1fMXN0X2Vk/aXRpb24uanBn',
+                'location_id' => '2',
+                'bookable' => true,
+                'price' => 8.50,]
         ];
 
         foreach ($shows as $showData) {
