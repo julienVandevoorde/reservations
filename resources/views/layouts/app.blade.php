@@ -31,6 +31,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('representation.index') }}">Representation</a>
                 </li>
+                <li class="nav-item">
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        <a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a>
+                    @endif
+                </li>
+
 
                 @guest
             <li class="nav-item">
