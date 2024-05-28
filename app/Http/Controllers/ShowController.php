@@ -59,6 +59,9 @@ class ShowController extends Controller
 
     public function create()
     {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas autorisé à accéder à cette page.');
+        }
         return view('show.create');
     }    
     

@@ -1,39 +1,46 @@
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('title', 'Liste des spectacles')
+@section('title', 'Liste des spectacles')
 
-    @section('content')
-        <div class="show-list-content">
-            <h1>Liste des {{ $resource }}</h1>
+@section('content')
+    <div class="show-list-content">
+        <h1>Liste des {{ $resource }}</h1>
 
-            <div class="search-container">
-                <form action="{{ route('search.show') }}" method="GET">
-                    <input type="text" name="query" placeholder="Rechercher un spectacle">
-                    <button type="submit">Rechercher</button>
-                    @if(request()->has('query'))
-                        <a href="{{ route('show.index') }}" class="btn btn-secondary">Annuler la recherche</a>
-                    @endif
-                </form>
-            </div>
+        @auth
+            @if (auth()->user()->isAdmin())
+                <a href="{{ route('show.create') }}" class="btn btn-primary">Ajouter</a>
+            @endif
+        @endauth
 
-            <div class="show-cards">
-                @foreach($shows as $show)
-                    <div class="show-card">
-                        <img src="{{ $show->poster_url }}" alt="{{ $show->title }}" class="show-image">
-                        <div class="show-info">
-                            <h2>{{ $show->title }}</h2>
-                            <p>
-                                @if($show->bookable)
-                                    {{ $show->price }} €
-                                @else
-                                    Non disponible à la réservation
-                                @endif
-                            </p>
-                            <a href="{{ route('show.show', $show->id) }}" class="btn btn-primary">Voir détails</a>
-                        </div>
+        <div class="search-container">
+            <form action="{{ route('search.show') }}" method="GET">
+                <input type="text" name="query" placeholder="Rechercher un spectacle">
+                <button type="submit">Rechercher</button>
+                @if(request()->has('query'))
+                    <a href="{{ route('show.index') }}" class="btn btn-secondary">Annuler la recherche</a>
+                @endif
+            </form>
+        </div>
+
+        <div class="show-cards">
+            @foreach($shows as $show)
+                <div class="show-card">
+                    <img src="{{ $show->poster_url }}" alt="{{ $show->title }}" class="show-image">
+                    <div class="show-info">
+                        <h2>{{ $show->title }}</h2>
+                        <p>
+                            @if($show->bookable)
+                                {{ $show->price }} €
+                            @else
+                                Non disponible à la réservation
+                            @endif
+                        </p>
+                        <a href="{{ route('show.show', $show->id) }}" class="btn btn-primary">Voir détails</a>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
+
 
             <div class="pagination-links">
                 @if ($shows->previousPageUrl())
@@ -43,6 +50,7 @@
                     <a href="{{ $shows->nextPageUrl() }}" class="btn btn-primary">Suivant</a>
                 @endif
             </div>
+        </div>
         </div>
     @endsection
 
