@@ -11,6 +11,7 @@ use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,3 +83,5 @@ Route::post('/handle-payment', [RepresentationController::class, 'handlePayment'
 Route::get('/payment-success', [RepresentationController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/representation/{id}/book', [RepresentationController::class, 'book'])->where('id', '[0-9]+')->name('representation.book');
 
+//Dashboard route
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
