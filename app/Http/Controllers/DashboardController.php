@@ -11,7 +11,7 @@ class DashboardController extends Controller
     {
         $users = User::all();
 
-        if (!auth()->check()) {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
             return redirect()->route('welcome');
         }
 
