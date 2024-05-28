@@ -3,30 +3,35 @@ Description
 Une brève description de l'API et de ses fonctionnalités.
 
 Endpoints
+
 GET /api/shows
 Description : Récupère la liste de tous les spectacles.
 Paramètres : Aucun.
 Réponse :
 200 OK : La liste des spectacles avec leurs détails.
 404 Not Found : Si aucun spectacle n'est trouvé.
+
 GET /api/shows/{id}
 Description : Récupère les détails d'un spectacle spécifique par ID.
 Paramètres : ID du spectacle.
 Réponse :
 200 OK : Les détails du spectacle demandé.
 404 Not Found : Si le spectacle n'est pas trouvé.
+
 GET /api/shows/search?query={query}
 Description : Recherche des spectacles par titre.
 Paramètres : Chaîne de requête (query) contenant le titre à rechercher.
 Réponse :
 200 OK : La liste des spectacles correspondant à la recherche.
 404 Not Found : Si aucun spectacle n'est trouvé.
+
 POST /api/shows
 Description : Crée un nouveau spectacle.
 Paramètres : Les détails du spectacle à créer (titre, description, date, emplacement, URL de l'affiche, réservable, prix).
 Réponse :
 201 Created : Les détails du spectacle créé.
 422 Unprocessable Entity : Si les données fournies ne sont pas valides.
+
 PUT /api/shows/{id}
 Description : Met à jour les détails d'un spectacle existant par ID.
 Paramètres : ID du spectacle à mettre à jour.
@@ -34,6 +39,7 @@ Réponse :
 200 OK : Les détails du spectacle mis à jour.
 404 Not Found : Si le spectacle n'est pas trouvé.
 422 Unprocessable Entity : Si les données fournies ne sont pas valides.
+
 DELETE /api/shows/{id}
 Description : Supprime un spectacle spécifique par ID.
 Paramètres : ID du spectacle à supprimer.

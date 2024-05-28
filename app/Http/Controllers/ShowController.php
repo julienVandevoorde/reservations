@@ -55,6 +55,11 @@ class ShowController extends Controller
         return response()->json($show, 201);
     }
 
+    public function create()
+    {
+        return view('show.create');
+    }    
+    
     /**
      * Display the specified resource.
      */

@@ -20,10 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('api')->group(function () {
-    Route::get('/shows', [ShowController::class, 'index']);
-    Route::get('/shows/search', [ShowController::class, 'search']);
-    Route::get('/shows/{id}', [ShowController::class, 'show']);
-    Route::post('/shows', [ShowController::class, 'store']);
-    Route::put('/shows/{id}', [ShowController::class, 'update']);
-    Route::delete('/shows/{id}', [ShowController::class, 'destroy']);
+    Route::get('/show', [ShowController::class, 'index']);
+    Route::get('/show/search', [ShowController::class, 'search']);
+    Route::get('/show/{id}', [ShowController::class, 'show']);
+    Route::post('/show', [ShowController::class, 'store']);
+    Route::put('/show/{id}', [ShowController::class, 'update']);
+    Route::delete('/show/{id}', [ShowController::class, 'destroy']);
 });
