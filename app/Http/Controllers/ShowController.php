@@ -14,12 +14,15 @@ class ShowController extends Controller
     {
         $shows = Show::all();
         
-        return view('show.index',[
+        return view('show.index', [
             'shows' => $shows,
             'resource' => 'spectacles',
         ]);
     }
 
+    /**
+     * Search for a show by title.
+     */
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -35,29 +38,27 @@ class ShowController extends Controller
             'resource' => 'spectacles',
         ]);
     }
-        
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'location' => 'required|string|max:255',
+        ]);
+
+        $show = Show::create($validatedData);
+
+        return response()->json($show, 201);
     }
 
     /**
      * Display the specified resource.
      */
-
-     
-    public function show(string $id)
+    public function show($id)
     {
         $show = Show::with('artistTypes.artist')->find($id);
     
@@ -67,15 +68,7 @@ class ShowController extends Controller
         
         return view('show.show', [
             'show' => $show,
-        ]);    
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        ]);
     }
 
     /**
@@ -83,7 +76,17 @@ class ShowController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required|string',
+            'date' => 'sometimes|required|date',
+            'location' => 'sometimes|required|string|max:255',
+        ]);
+
+        $show = Show::findOrFail($id);
+        $show->update($validatedData);
+
+        return response()->json($show, 200);
     }
 
     /**
@@ -91,6 +94,10 @@ class ShowController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $show = Show::findOrFail($id);
+        $show->delete();
+
+        return response()->json(null, 204);
     }
 }
+
