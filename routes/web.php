@@ -85,4 +85,16 @@ Route::get('/representation/{id}/book', [RepresentationController::class, 'book'
 //Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+// Profil de l'utilisateur
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+});
+
+// Modifier un utilisateur
+Route::get('/dashboard/users/{user}/edit', [DashboardController::class, 'edit'])->name('users.edit');
+// Mettre à jour un utilisateur
+Route::put('/dashboard/users/{user}', [DashboardController::class, 'update'])->name('users.update');
+// Supprimer un utilisateur
+Route::delete('/dashboard/users/{user}', [DashboardController::class, 'destroy'])->name('users.destroy');
 

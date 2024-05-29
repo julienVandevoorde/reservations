@@ -90,4 +90,40 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+
+    //page profil
+    public function showProfile()
+    {
+        return view('profil.profile', ['user' => Auth::user()]);
+    }
+
+
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+    
+        $messages = [
+            'password.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
+            'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.'
+        ];
+    
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed'
+        ], $messages);
+    
+        $data = $request->only('email');
+        if (!empty($request->password)) {
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        $user->update($data);
+    
+        return back()->with('status', 'Profil mis à jour avec succès.');
+    }
+    
+
 }
+
