@@ -39,7 +39,7 @@
     <script>
         function updatePrice() {
             var places = document.getElementById('places').value;
-            var pricePerTicket = {{ $representation->show->price }};
+            var pricePerTicket = "{{ $representation->show->price }}";
             var totalPrice = places * pricePerTicket;
             document.getElementById('price').value = totalPrice.toFixed(2) + " €";
         }

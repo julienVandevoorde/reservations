@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
         if (!auth()->check() || !auth()->user()->isAdmin()) {
             return redirect()->route('welcome');
-        }
+        }   
 
         return view('dashboard.index', compact('users'));
     }

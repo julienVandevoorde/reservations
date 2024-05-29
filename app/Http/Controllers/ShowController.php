@@ -4,53 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Show;
-
+use Illuminate\Support\Str;
 
 class ShowController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $shows = Show::simplePaginate(2); 
+        $shows = Show::simplePaginate(4); 
         
         return view('show.index', [
             'shows' => $shows,
             'resource' => 'spectacles',
         ]);
     }
-    
-    /**
-     * Search for a show by title.
-     */
-    public function search(Request $request)
-{
-    $query = $request->input('query');
 
-    if ($query) {
-        $shows = Show::where('title', 'LIKE', "%{$query}%")->simplePaginate(2); 
-    } else {
-        $shows = Show::paginate(2); 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if ($query) {
+            $shows = Show::where('title', 'LIKE', "%{$query}%")->simplePaginate(2); 
+        } else {
+            $shows = Show::paginate(2); 
+        }
+
+        return view('show.index', [
+            'shows' => $shows,
+            'resource' => 'spectacles',
+        ]);
     }
 
-    return view('show.index', [
-        'shows' => $shows,
-        'resource' => 'spectacles',
-    ]);
-}
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'date' => 'required|date',
             'location' => 'required|string|max:255',
+            'poster_url' => 'nullable|url',
+            'price' => 'required|numeric',
+            'bookable' => 'sometimes|boolean', 
         ]);
+
+        $validatedData['bookable'] = $request->has('bookable') ? $request->input('bookable') : false;
+
+        $validatedData['slug'] = Str::slug($validatedData['title'], '-');
 
         $show = Show::create($validatedData);
 
@@ -63,27 +60,21 @@ class ShowController extends Controller
             return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas autorisé à accéder à cette page.');
         }
         return view('show.create');
-    }    
-    
-    /**
-     * Display the specified resource.
-     */
+    }
+
     public function show($id)
     {
         $show = Show::with('artistTypes.artist')->find($id);
-    
+
         if (!$show) {
             return response()->view('errors.404', [], 404);
         }
-        
+
         return view('show.show', [
             'show' => $show,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
@@ -91,28 +82,23 @@ class ShowController extends Controller
             'description' => 'sometimes|required|string',
             'date' => 'sometimes|required|date',
             'location' => 'sometimes|required|string|max:255',
+            'bookable' => 'sometimes|required|boolean',
         ]);
 
         $show = Show::findOrFail($id);
+        $validatedData['slug'] = Str::slug($validatedData['title'], '-');
         $show->update($validatedData);
 
         return response()->json($show, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $show = Show::find($id);
-
-        if (!$show) {
-            return response()->json(['message' => 'Show not found'], 404);
-        }
-
+        $show = Show::findOrFail($id);
         $show->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('show.index')->with('success', 'Le spectacle a été supprimé avec succès.');
     }
 }
+
 

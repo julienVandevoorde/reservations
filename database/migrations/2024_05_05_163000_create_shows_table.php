@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 60)->unique();
-            $table->string('title', 60);            
-            $table->text('description')->nullable();            
-            $table->string('poster_url', 255)->nullable();            
-            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');            
-            $table->boolean('bookable');            
-            $table->decimal('price');
+            $table->string('slug', 60)->nullable()->unique();
+            $table->string('title', 60);
+            $table->text('description')->nullable();
+            $table->string('poster_url', 255)->nullable();
+            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('cascade');
+            $table->boolean('bookable')->default(true); 
+            $table->decimal('price', 8, 2)->default(0.00);
         });
     }
 
@@ -31,4 +31,5 @@ return new class extends Migration
         Schema::dropIfExists('shows');
     }
 };
+
 

@@ -90,6 +90,10 @@ class RepresentationController extends Controller
         $show = Show::find($id);
         $representation = Representation::find($id);
     
+        if(!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         return view('representation.reservation', [
             'show' => $show,
             'representation' => $representation,

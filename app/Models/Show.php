@@ -21,7 +21,7 @@ class Show extends Model
 
     protected $table = 'shows';
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function artistTypes()
     {

@@ -8,7 +8,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
-use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -73,7 +72,7 @@ Route::get('/show/edit/{id}', [ShowController::class, 'edit'])->where('id', '[0-
 Route::put('/show/{id}', [ShowController::class, 'update'])->where('id', '[0-9]+')->name('show.update');
 Route::post('/show', [ShowController::class, 'store'])->name('show.store');
 Route::get('/show/create', [ShowController::class, 'create'])->name('show.create');
-Route::delete('/show/{id}', [ShowController::class, 'destroy'])->name('show.destroy');
+Route::delete('/show/{id}', [ShowController::class, 'destroy'])->where('id', '[0-9]+')->name('show.destroy');
 
 // Representation routes
 Route::get('/representation', [RepresentationController::class, 'index'])->name('representation.index');
@@ -85,3 +84,5 @@ Route::get('/representation/{id}/book', [RepresentationController::class, 'book'
 
 //Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+

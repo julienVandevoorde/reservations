@@ -31,6 +31,10 @@
         .reservation-form {
             margin-left: 0; 
         }
+
+        .delete-form {
+            margin-top: 20px;
+        }
     </style>
 
     <div class="show-details-content">
@@ -78,7 +82,7 @@
                         <form class="reservation-form" action="{{ route('representation.reservation', ['id' => $representation->id]) }}" method="POST">
                             @csrf
                             <input type="hidden" name="representation_id" value="{{ $representation->id }}">
-                            <!-- Autres champs de formulaire pour la réservation -->
+
                             <button type="submit">Réserver</button>
                         </form>
                     </li>
@@ -104,6 +108,14 @@
 
         </article>
         
+        @if(auth()->check() && auth()->user()->isAdmin())
+        <form class="delete-form" action="{{ route('show.destroy', $show->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce spectacle ?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Supprimer ce spectacle</button>
+        </form>
+        @endif
+
         <nav><a href="{{ route('show.index') }}">Retour aux shows</a></nav>
     </div>
 @endsection
