@@ -98,3 +98,6 @@ Route::put('/dashboard/users/{user}', [DashboardController::class, 'update'])->n
 // Supprimer un utilisateur
 Route::delete('/dashboard/users/{user}', [DashboardController::class, 'destroy'])->name('users.destroy');
 
+
+// Ajoute cette ligne dans web.php
+Route::get('/dashboard/export-users', [DashboardController::class, 'exportUsersCsv'])->name('dashboard.export');

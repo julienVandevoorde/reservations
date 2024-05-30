@@ -3,8 +3,13 @@
 @section('content')
 <div class="container">
     <h1>Dashboard</h1>
+    <br>
     <h2>Liste des utilisateurs :</h2>
+    <br>
+    
+    <a href="{{ route('dashboard.export') }}" class="btn btn-primary">download users in .csv</a>
     <br><br>
+
     <table class="table">
         <thead>
             <tr>

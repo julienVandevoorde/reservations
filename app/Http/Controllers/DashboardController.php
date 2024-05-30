@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Response;
+
 
 class DashboardController extends Controller
 {
@@ -42,6 +44,45 @@ class DashboardController extends Controller
         $user->delete();
         return back()->with('success', 'User deleted successfully');
     }
+
+
+    // Exporter les utilisateurs au format CSV
+    public function exportUsersCsv()
+    {
+        $fileName = 'users.csv';
+        $users = User::all();
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = ['ID', 'Login', 'Firstname', 'Lastname', 'Email', 'Langue'];
+
+        $callback = function() use($users, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($users as $user) {
+                fputcsv($file, [
+                    $user->id,
+                    $user->login,
+                    $user->firstname,
+                    $user->lastname,
+                    $user->email,
+                    $user->langue
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     
     
 }
