@@ -11,6 +11,7 @@ use App\Http\Controllers\RepresentationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,3 +102,13 @@ Route::delete('/dashboard/users/{user}', [DashboardController::class, 'destroy']
 
 // Ajoute cette ligne dans web.php
 Route::get('/dashboard/export-users', [DashboardController::class, 'exportUsersCsv'])->name('dashboard.export');
+
+// Video routes
+Route::post('/video', [VideoController::class, 'store'])->name('video.store');
+Route::get('/videos/create/{show_id}', [VideoController::class, 'create'])->name('video.create');
+
+
+// Route personalisé
+Route::get('/artist/{artistName}/videos', [ArtistController::class, 'showVideos']);
+
+

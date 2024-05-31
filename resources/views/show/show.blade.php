@@ -37,6 +37,9 @@
         }
     </style>
 
+
+        
+
     <div class="show-details-content">
         <article>
             <h1>{{ $show->title }}</h1>
@@ -108,6 +111,29 @@
 
         </article>
         
+        <h2>Video</h2>
+
+        @if($show->videos->isNotEmpty())
+            <div>
+                <p>Liste des vidéos :</p>
+                <ul>
+                    @foreach ($show->videos as $video)
+                        <li>
+                            <a href="{{ $video->video_url }}" target="_blank">{{ $video->title }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            <p>Aucune vidéo disponible</p>
+        @endif
+
+        @auth
+            @if (auth()->user()->isAdmin())
+            <a href="{{ route('video.create', ['show_id' => $show->id]) }}">Ajouter une vidéo</a>
+            @endif
+        @endauth
+
         @if(auth()->check() && auth()->user()->isAdmin())
         <form class="delete-form" action="{{ route('show.destroy', $show->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce spectacle ?')">
             @csrf
@@ -115,6 +141,8 @@
             <button type="submit">Supprimer ce spectacle</button>
         </form>
         @endif
+
+        
 
         <nav><a href="{{ route('show.index') }}">Retour aux shows</a></nav>
     </div>

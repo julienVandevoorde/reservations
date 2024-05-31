@@ -70,8 +70,11 @@ class ShowController extends Controller
             return response()->view('errors.404', [], 404);
         }
 
+        $videos = $show->videos; 
+
         return view('show.show', [
             'show' => $show,
+            'videos' => $videos, 
         ]);
     }
 

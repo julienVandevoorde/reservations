@@ -29,6 +29,18 @@ class ArtistController extends Controller
         return view('artist.create');
     }
 
+
+    public function showVideos($artistName)
+    {
+
+        $artist = Artist::where('lastname', $artistName)->firstOrFail();
+
+        $videos = $artist->shows()->with('videos')->get()->pluck('videos')->flatten();
+
+        return view('artist.videos', ['artist' => $artist, 'videos' => $videos]);
+    }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([

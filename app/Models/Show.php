@@ -37,4 +37,8 @@ class Show extends Model
     {
         return $this->hasMany(Representation::class, 'show_id');
     }
+
+    public function videos(){
+        return $this->hasMany(Video::class, 'show_id');
+    }
 }

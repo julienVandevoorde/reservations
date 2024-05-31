@@ -22,6 +22,11 @@ class Artist extends Model
         return $this->belongsToMany(Type::class, 'artist_type', 'artist_id', 'type_id');
     }
 
+    public function shows()
+    {
+        return $this->belongsToMany(Show::class, 'artist_type_show', 'artist_id', 'show_id');
+    }
+
     public function artistTypes(){
         return $this->hasMany(ArtistType::class, 'artist_id');
     }
