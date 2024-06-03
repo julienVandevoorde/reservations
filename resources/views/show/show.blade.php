@@ -19,7 +19,7 @@
 
         .representation-item {
             display: flex;
-            justify-content: flex-start; 
+            justify-content: space-between; 
             align-items: center;
             margin-bottom: 10px; 
         }
@@ -28,17 +28,14 @@
             margin-right: 10px; 
         }
 
-        .reservation-form {
+        .reservation-form, .delete-form {
             margin-left: 0; 
         }
 
         .delete-form {
-            margin-top: 20px;
+            margin-top: 0;
         }
     </style>
-
-
-        
 
     <div class="show-details-content">
         <article>
@@ -88,6 +85,15 @@
 
                             <button type="submit">Réserver</button>
                         </form>
+                        @auth
+                            @if (auth()->user()->isAdmin())
+                            <form class="delete-form" action="{{ route('representation.destroy', $representation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette représentation ?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Supprimer</button>
+                            </form>
+                            @endif
+                        @endauth
                     </li>
                 @endforeach
             </ul>
@@ -95,6 +101,11 @@
                 <p>Aucune représentation</p>
             @endif
 
+            @auth
+                @if (auth()->user()->isAdmin())
+                <a href="{{ route('representation.create', $show->id) }}">Ajouter une nouvelle représentation</a>
+                @endif
+            @endauth
             
             <h2>Liste des artistes</h2>
             @if($show->artistTypes->isNotEmpty())

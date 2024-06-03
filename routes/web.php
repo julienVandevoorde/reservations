@@ -82,6 +82,10 @@ Route::post('/representation/reservation/{id}', [RepresentationController::class
 Route::post('/handle-payment', [RepresentationController::class, 'handlePayment'])->name('handle.payment');
 Route::get('/payment-success', [RepresentationController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/representation/{id}/book', [RepresentationController::class, 'book'])->where('id', '[0-9]+')->name('representation.book');
+Route::get('/shows/{show}/representations/create', [RepresentationController::class, 'create'])->name('representation.create');
+Route::post('/shows/{show}/representations', [RepresentationController::class, 'store'])->name('representation.store');
+Route::delete('/representations/{representation}', [RepresentationController::class, 'destroy'])->name('representation.destroy');
+
 
 //Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Show;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
+use App\Models\Location;
 
 class RepresentationController extends Controller
 {
@@ -24,22 +25,27 @@ class RepresentationController extends Controller
         ]);
     } 
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create($showId)
     {
-        //
+        $show = Show::findOrFail($showId);
+        $locations = Location::all();
+        return view('representation.create', compact('show', 'locations'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, $showId)
     {
-        //
+        $validatedData = $request->validate([
+            'when' => 'required|date',
+            'location_id' => 'required|exists:locations,id',
+        ]);
+
+        $representation = new Representation();
+        $representation->when = $validatedData['when'];
+        $representation->location_id = $validatedData['location_id'];
+        $representation->show_id = $showId;
+        $representation->save();
+
+        return redirect()->route('show.show', $showId)->with('success', 'Représentation ajoutée avec succès.');
     }
 
     /**
@@ -58,30 +64,16 @@ class RepresentationController extends Controller
         ]);
     }
 
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $representation = Representation::findOrFail($id);
+        $showId = $representation->show_id;
+        $representation->delete();
+
+        return redirect()->route('show.show', $showId)->with('success', 'Représentation supprimée avec succès.');
     }
     
 

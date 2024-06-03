@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Str;
+use App\Models\Location;
 
 class ShowController extends Controller
 {
@@ -34,15 +35,27 @@ class ShowController extends Controller
         ]);
     }
 
+
+    public function create()
+    {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas autorisé à accéder à cette page.');
+        }
+    
+        $locations = Location::all(); 
+    
+        return view('show.create', compact('locations'));
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'location' => 'required|string|max:255',
+            'location_id' => 'required|exists:locations,id', 
             'poster_url' => 'nullable|url',
             'price' => 'required|numeric',
-            'bookable' => 'sometimes|boolean', 
+            'bookable' => 'sometimes|boolean',
         ]);
 
         $validatedData['bookable'] = $request->has('bookable') ? $request->input('bookable') : false;
@@ -54,13 +67,7 @@ class ShowController extends Controller
         return response()->json($show, 201);
     }
 
-    public function create()
-    {
-        if (!auth()->check() || !auth()->user()->isAdmin()) {
-            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas autorisé à accéder à cette page.');
-        }
-        return view('show.create');
-    }
+
 
     public function show($id)
     {

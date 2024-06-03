@@ -4,7 +4,8 @@
 
 @section('content')
 <style>
-    .form-container {
+
+ .form-container {
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
@@ -88,87 +89,85 @@
     .navigation-link:hover {
         text-decoration: underline;
     }
+
 </style>
 
-    <div class="form-container">
-        <h2 class="form-title">Ajouter un spectacle</h2>
+<div class="form-container">
+    <h2 class="form-title">Ajouter un spectacle</h2>
 
-        <form action="{{ route('show.store') }}" method="post" class="custom-form">
-            @csrf
-            <div class="form-group">
-                <label for="title" class="form-label">Titre</label>
-                <input type="text" id="title" name="title" value="{{ old('title') }}"
-                       class="form-input {{ $errors->has('title') ? 'invalid-input' : '' }}">
+    <form action="{{ route('show.store') }}" method="post" class="custom-form">
+        @csrf
 
-                @error('title')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="form-group">
+            <label for="title" class="form-label">Titre</label>
+            <input type="text" id="title" name="title" value="{{ old('title') }}"
+                   class="form-input {{ $errors->has('title') ? 'invalid-input' : '' }}">
 
-            <div class="form-group">
-                <label for="description" class="form-label">Description</label>
-                <textarea id="description" name="description"
-                          class="form-textarea {{ $errors->has('description') ? 'invalid-input' : '' }}">{{ old('description') }}</textarea>
+            @error('title')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-                @error('description')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description"
+                      class="form-textarea {{ $errors->has('description') ? 'invalid-input' : '' }}">{{ old('description') }}</textarea>
 
-            <div class="form-group">
-                <label for="location" class="form-label">Lieu</label>
-                <input type="text" id="location" name="location" value="{{ old('location') }}"
-                       class="form-input {{ $errors->has('location') ? 'invalid-input' : '' }}">
+            @error('description')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-                @error('location')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="form-group">
+            <label for="poster_url" class="form-label">URL de l'affiche</label>
+            <input type="text" id="poster_url" name="poster_url" value="{{ old('poster_url') }}"
+                   class="form-input {{ $errors->has('poster_url') ? 'invalid-input' : '' }}">
 
-            <div class="form-group">
-                <label for="poster_url" class="form-label">URL de l'image</label>
-                <input type="text" id="poster_url" name="poster_url" value="{{ old('poster_url') }}"
-                       class="form-input {{ $errors->has('poster_url') ? 'invalid-input' : '' }}">
+            @error('poster_url')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-                @error('poster_url')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="form-group">
+            <label for="price" class="form-label">Prix</label>
+            <input type="text" id="price" name="price" value="{{ old('price') }}"
+                   class="form-input {{ $errors->has('price') ? 'invalid-input' : '' }}">
 
-            <div class="form-group">
-                <label for="bookable" class="form-label">Réservable</label>
-                <input type="checkbox" id="bookable" name="bookable" value="1"
-                       {{ old('bookable') ? 'checked' : '' }} class="form-checkbox {{ $errors->has('bookable') ? 'invalid-input' : '' }}">
-                
-                @error('bookable')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+            @error('price')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-            <div class="form-group">
-                <label for="price" class="form-label">Prix</label>
-                <input type="text" id="price" name="price" value="{{ old('price') }}"
-                       class="form-input {{ $errors->has('price') ? 'invalid-input' : '' }}">
+        <div class="form-group">
+            <label for="location_id" class="form-label">Localisation</label>
+            <select id="location_id" name="location_id"
+                    class="form-input {{ $errors->has('location_id') ? 'invalid-input' : '' }}">
+                <option value="">Sélectionnez une localisation</option>
+                @foreach($locations as $location)
+                    <option value="{{ $location->id }}" {{ old('location_id') == $location->id ? 'selected' : '' }}>
+                        {{ $location->designation }}
+                    </option>
+                @endforeach
+            </select>
 
-                @error('price')
-                    <div class="form-alert form-alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+            @error('location_id')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-            <button type="submit" class="submit-button">Ajouter</button>
-        </form>
+        <div class="form-group">
+            <label for="bookable" class="form-label">Réservable</label>
+            <input type="checkbox" id="bookable" name="bookable" value="1"
+                   {{ old('bookable') ? 'checked' : '' }} class="form-checkbox {{ $errors->has('bookable') ? 'invalid-input' : '' }}">
+            
+            @error('bookable')
+                <div class="form-alert form-alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-        @if ($errors->any())
-            <div class="form-alert form-alert-danger">
-                <h2>Liste des erreurs de validation</h2>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <button type="submit" class="submit-button">Ajouter</button>
+    </form>
 
-        <nav><a href="{{ route('show.index') }}" class="navigation-link">Retour à l'index</a></nav>
-    </div>
+    <nav><a href="{{ route('show.index') }}" class="navigation-link">Retour à l'index</a></nav>
+</div>
 @endsection
