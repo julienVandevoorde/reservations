@@ -79,12 +79,14 @@
                             (lieu à déterminer)
                             @endif
                         </span>
+                        @if($show->bookable)
                         <form class="reservation-form" action="{{ route('representation.reservation', ['id' => $representation->id]) }}" method="POST">
                             @csrf
                             <input type="hidden" name="representation_id" value="{{ $representation->id }}">
 
                             <button type="submit">Réserver</button>
                         </form>
+                        @endif
                         @auth
                             @if (auth()->user()->isAdmin())
                             <form class="delete-form" action="{{ route('representation.destroy', $representation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette représentation ?')">

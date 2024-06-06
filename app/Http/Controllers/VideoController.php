@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use App\Models\Show;
 use App\Models\Video;
 use Illuminate\Http\Request;
-use App\Http\Controllers\VideoController;
 
 
 
