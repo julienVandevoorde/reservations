@@ -32,7 +32,7 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->langue }}</td>
             <td>
-                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block;">
                     @csrf
                     @method('DELETE')
